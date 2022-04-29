@@ -68,13 +68,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string sql = "select username, customerID from customer where ;";        
+        string sql = "select username, customerID from customer ;";        
         people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
-
-
-
-
-
     }
 
 }
