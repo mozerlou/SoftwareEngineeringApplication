@@ -1,5 +1,25 @@
 ﻿@page "/account"
 
+
+   
 @code {
+    //private string? name { get; set; }
+    public class AppRootBase : ComponentBase
+    {
+        string Username;
+        private string? name { get; set; }
+        [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await authenticationStateTask;
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                Console.WriteLine($"{user.Identity.Name} is authenticated.");
+            }
+        }
+    }
 
 }
