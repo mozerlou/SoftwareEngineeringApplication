@@ -2,16 +2,49 @@
 @inject NavigationManager Navigation
 @inject TokenProvider TokenProvider
 
+@*Things needed to use Bank DB*@
+@using DataLibrary
+@using BlazorApp4.Models
+@using Microsoft.Extensions.Configuration
+@inject IDataAccess _data
+@inject IConfiguration _config
+
 <AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage/Index">
-            Hello, @context.User.Identity.Name!
+        
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hello, @context.User.Identity.Name!
         </a>
-        <form action="/Identity/Account/Logout?returnUrl=%2F" method="post">
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+            <a class="dropdown-item" href="Identity/Account/Manage">Manage your account</a>    
+ 
+            <a class="dropdown-item"> 
+            <form action="/Identity/Account/Logout?returnUrl=%2F" method="post">           
             <button class="nav-link btn btn-link" type="submit">Logout</button>
             <input name="__RequestVerificationToken" type="hidden"
-                   value="@TokenProvider.XsrfToken">
-        </form>
+            value="@TokenProvider.XsrfToken">
+            </form></a>     
+            
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
     </Authorized>
     <NotAuthorized>
         <a href="Identity/Account/Register">Register</a>
