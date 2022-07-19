@@ -78,16 +78,18 @@
         var authState = await authenticationStateTask;
         var user = authState.User;
 
-        if (user.Identity.IsAuthenticated)
-        {
-            Console.WriteLine($"{user.Identity.Name} is authenticated.");
-        }
+        //gets userinfo
         string sql = "select username, customerID from customer where username = \"" + user.Identity.Name + "\";";        
         people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+        
+
         int id = people[0].CustomerID;
         string sql2 = "select * from account where customer_CustomerID = " + id + ";";        
         account = await _data.LoadData<AccountModel, dynamic>(sql2, new { }, _config.GetConnectionString("default"));  
-       if (accountnum==null||accountnum ==0)
+      
+
+        //at startup of the page this, we are not specifying         
+        if (accountnum==null||accountnum ==0)
         {
                accountnum = account[0].AccountID;
         }
